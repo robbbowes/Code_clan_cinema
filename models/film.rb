@@ -46,10 +46,15 @@ class Film
   end
 
   def which_customers
-    sql = 'SELECT customer.* FROM customers
+    sql = 'SELECT * FROM customers
       INNER JOIN tickets ON customers.id = tickets.customer_id
       WHERE film_id = $1'
     values = [@id]
+    results = SqlRunner.run(sql, values)
+    which_customers = results.map {|customer| Customer.new(customer)}
+    return which_customers
   end
+
+
 
 end

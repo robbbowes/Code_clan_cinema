@@ -12,10 +12,10 @@ class Ticket
 
   def save
     sql = 'INSERT INTO tickets
-      (id, customer_id, film_id) WHERE
-      (VALUES $1, $2, $3)
-      RETURNING id'
-    values = [@id, @customer_id, @film_id]
+      (customer_id, film_id)
+      VALUES ($1, $2)
+      RETURNING id;'
+    values = [@customer_id, @film_id]
     save_ticket = SqlRunner.run(sql, values)
     result = save_ticket.map { |ticket| Ticket.new(ticket) }
   end
@@ -35,7 +35,7 @@ class Ticket
   end
 
   def delete
-    sql = 'DELETE FROM tickets WHERE id = $1'
+    sql = 'DELETE FROM tickets WHERE id = $1;'
     values = [@id]
     SqlRunner.run(sql, values)
   end

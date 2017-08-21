@@ -1,9 +1,11 @@
 require_relative('../db/sql_runner')
+require_relative('./film')
+require_relative('./ticket')
 
 class Customer
 
   attr_reader(:id)
-  attr_accessor(:name)
+  attr_accessor(:name, :funds)
 
   def initialize( details )
     @id = details['id'].to_i
@@ -60,6 +62,27 @@ class Customer
     which_films = results.map { |film| Film.new(film) }
     return which_films
   end
+
+
+
+  def
+
+
+
+
+
+
+  # def buy_ticket
+  #   sql = 'UPDATE customers SET
+  #    ( funds )
+  #       =
+  #    ( $1 )
+  #     INNER JOIN tickets on films.id = tickets.film_id
+  #     WHERE customer_id = $2;'
+  #     new_funds = @funds.to_i - @cost.to_i
+  #     values = [new_funds, @id]
+  #     results = SqlRunner.run(sql, values)
+  # end
 
 
 end
